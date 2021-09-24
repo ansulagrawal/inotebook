@@ -3,6 +3,11 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const NotesSchema = new Schema({
+   user: {
+      // Foregin Key assign or its coming from the other side.
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'user'
+   },
    title: {
       type: String,
       required: true
