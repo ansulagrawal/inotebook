@@ -1,8 +1,6 @@
-import React, { useContext } from 'react'
-import NoteContext from '../context/notes/NoteContext';
+import React from 'react'
+import Notes from './Notes';
 const Home = () => {
-   const context = useContext(NoteContext);
-   const { notes, setNotes } = context;
    return (
       <>
          <div className="container">
@@ -16,12 +14,7 @@ const Home = () => {
                <textarea className="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
             </div>
          </div>
-         <div className="container">
-            <h2>Your Notes</h2>
-            {notes.map((note) => {
-               return note.title;
-            })}
-         </div>
+         <Notes />
       </ >
    )
 }
