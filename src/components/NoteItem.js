@@ -3,7 +3,7 @@ import NoteContext from '../context/notes/NoteContext';
 const NoteItem = (props) => {
    const context = useContext(NoteContext);
    const { deleteNote } = context;
-   const { note } = props;
+   const { note, updateNote } = props;
    return (
       <div className="col-md-3">
          <div className="card text-dark bg-light mb-3" >
@@ -12,7 +12,7 @@ const NoteItem = (props) => {
                <p className="card-text">{note.description}</p>
                <div className="d-flex justify-content-between">
                   <i className="fas fa-trash-alt" onClick={() => { deleteNote(note._id) }}></i>
-                  <i className="fas fa-edit"></i>
+                  <i className="fas fa-edit" onClick={() => { updateNote(note) }}></i>
                </div>
             </div>
          </div>
