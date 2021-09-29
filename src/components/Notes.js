@@ -4,7 +4,7 @@ import AddNote from './AddNote';
 import NoteItem from './NoteItem';
 const Notes = () => {
    const context = useContext(NoteContext);
-   const { notes, getNotes } = context;
+   const { notes, getNotes, editNote } = context;
 
 
    useEffect(() => {
@@ -13,15 +13,16 @@ const Notes = () => {
    }, [])
 
    const ref = useRef(null)
-   const [note, setNote] = useState({ etitle: "", edescription: "", etag: "" });
+   const [note, setNote] = useState({ id: "", etitle: "", edescription: "", etag: "" });
 
    const updateNote = (currentNote) => {
       ref.current.click();
-      setNote({ etitle: currentNote.title, edescription: currentNote.description, etag: currentNote.tag })
+      setNote({ id: currentNote._id, etitle: currentNote.title, edescription: currentNote.description, etag: currentNote.tag })
    }
 
    const handleClick = (e) => {
-      console.log("Updating the note...", note)
+      console.log("Updating the note...", note);
+      editNote(note.id, note.etitle, note.edescription, note.etag)
       e.preventDefault();
    }
 

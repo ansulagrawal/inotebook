@@ -79,27 +79,31 @@ const NoteState = (props) => {
 
    // Edit a note:
    const editNote = async (id, title, description, tag) => {
+      console.log(id, title, description, tag)
       // TODO:Api Calls
       const response = await fetch(`${host}/api/notes/updatenote/${id}`, {
-         method: 'POST',
+         method: 'PUT',
          headers: {
             'Content-Type': 'application/json',
-            'auth- token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjEzZjM3YzE3MzNlNmMxNjExZTk4NGUwIn0sImlhdCI6MTYzMjQ4MjQ3OH0.bEFsn6cSj_IaAELaTSvvqZjeZSxlFsdZl_o4G6z57f4'
+            'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjEzZjM3YzE3MzNlNmMxNjExZTk4NGUwIn0sImlhdCI6MTYzMjkwODgxMH0.c20i6cqMQng5rY6JhIw2wQoJ4BLrSZXo05I2V1R6EJA'
          },
          body: JSON.stringify({ title, description, tag })
       });
       const json = response.json();
       console.log(json)
 
-      // TODO: Logic to edit in the client 
-      for (let i = 0; i < notes.length; i++) {
-         const element = notes[i];
+      // TODO: Logic to edit in the client
+      let newNote = JSON.parse(JSON.stringify(notes))
+      for (let i = 0; i < newNote.length; i++) {
+         const element = newNote[i];
          if (element._id === id) {
-            element.title = title;
-            element.description = description;
-            element.tag = tag;
+            newNote[i].title = title;
+            newNote[i].description = description;
+            newNote[i].tag = tag;
+            break;
          }
       }
+      setNotes(newNote);
    }
 
    return (
