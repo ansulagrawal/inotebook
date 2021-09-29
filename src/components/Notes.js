@@ -4,7 +4,7 @@ import AddNote from './AddNote';
 import NoteItem from './NoteItem';
 const Notes = () => {
    const context = useContext(NoteContext);
-   const { notes, addNote } = context;
+   const { notes } = context;
    return (
       <>
          <AddNote />

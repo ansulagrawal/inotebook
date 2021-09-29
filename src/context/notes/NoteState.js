@@ -74,15 +74,18 @@ const NoteState = (props) => {
          "date": "2021-09-24T12:03:57.866Z",
          "__v": 0
       };
-      console.log(note);
+      // console.log(note);
       // setNotes(notes.push(note))
       setNotes(notes.concat(note))
 
    }
 
    // Delete a Note:
-   const deleteNote = () => {
-
+   const deleteNote = (id) => {
+      // TODO Api Calls
+      console.log("Deleting a note with id" + id);
+      const newNote = notes.filter((notes) => { return (notes._id !== id) })
+      setNotes(newNote)
    }
 
    // Edit a note:
