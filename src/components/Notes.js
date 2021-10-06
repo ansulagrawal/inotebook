@@ -21,7 +21,7 @@ const Notes = () => {
    }
 
    const handleClick = (e) => {
-      console.log("Updating the note...", note);
+      // console.log("Updating the note...", note);
       editNote(note.id, note.etitle, note.edescription, note.etag)
       e.preventDefault();
    }
@@ -47,27 +47,30 @@ const Notes = () => {
                      <form>
                         <div className="mb-3">
                            <label htmlFor="etitle" className="form-label">Title</label>
-                           <input type="text" className="form-control" id="etitle" name="etitle" value={note.etitle} onChange={onChange} />
+                           <input type="text" className="form-control" id="etitle" name="etitle" value={note.etitle} onChange={onChange} minLength={5} required />
                         </div>
                         <div className="mb-3">
                            <label htmlFor="edescription" className="form-label">Description</label>
-                           <input type="text" className="form-control" id="edescription" name="edescription" value={note.edescription} onChange={onChange} />
+                           <input type="text" className="form-control" id="edescription" name="edescription" value={note.edescription} onChange={onChange} minLength={5} required />
                         </div>
                         <div className="mb-3">
                            <label htmlFor="etag" className="form-label">Tag</label>
-                           <input type="text" className="form-control" id="etag" name="etag" value={note.etag} onChange={onChange} />
+                           <input type="text" className="form-control" id="etag" name="etag" value={note.etag} onChange={onChange} minLength={2} required />
                         </div>
                      </form>
                   </div>
                   <div className="modal-footer">
                      <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                     <button type="button" className="btn btn-primary" data-bs-dismiss="modal" onClick={handleClick}>Update Node</button>
+                     <button disabled={note.etitle.length < 5 || note.edescription.length < 5 || note.etag.length < 2} type="button" className="btn btn-primary" data-bs-dismiss="modal" onClick={handleClick}>Update Node</button>
                   </div>
                </div>
             </div>
          </div>
-         <div className="row">
+         <div className="ms-1 row">
             <h2>Your Notes</h2>
+            <div className="container text-center fs-3 fw-light">
+               {notes.length === 0 && 'No notes to Display!'}
+            </div>
             {notes.map((note) => {
                return (<NoteItem key={note._id} note={note} updateNote={updateNote} />)
             })}

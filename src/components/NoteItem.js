@@ -9,7 +9,8 @@ const NoteItem = (props) => {
          <div className="card text-dark bg-light mb-3" >
             <div className="card-body">
                <h5 className="card-title">{note.title}</h5>
-               <p className="card-text">{note.description}</p>
+               <p className="card-text"><strong>Description:</strong>{note.description}</p>
+               <p className="cart-text"><strong>Tag:</strong>{note.tag}</p>
                <div className="d-flex justify-content-between">
                   <i className="fas fa-trash-alt" onClick={() => { deleteNote(note._id) }}></i>
                   <i className="fas fa-edit" onClick={() => { updateNote(note) }}></i>
