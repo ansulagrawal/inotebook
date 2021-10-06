@@ -88,7 +88,7 @@ router.post('/login', [
 ], async (req, res) => {
    // Finds the validation errors in this request and wraps them in an object with handy functions
    const errors = validationResult(req);
-
+   let sucess = false;
    //If there are errors, return Bad request and the errors
    if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
@@ -105,7 +105,7 @@ router.post('/login', [
 
       const passwordCompare = await bcrypt.compare(password, user.password);
       if (!passwordCompare) {
-         return res.status(400).json({ error: "Please try to login with correct credentials." });
+         return res.status(400).json({ sucess, error: "Please try to login with correct credentials." });
       }
 
       const data = {
@@ -114,7 +114,8 @@ router.post('/login', [
          }
       }
       const authtoken = jwt.sign(data, JWT_SECRET);
-      res.json({ authtoken });
+      sucess = true;
+      res.json({ sucess, authtoken });
 
    } catch (error) {
       console.log(error.message);
