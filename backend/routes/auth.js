@@ -21,10 +21,10 @@ router.post('/createuser', [
 
    // Finds the validation errors in this request and wraps them in an object with handy functions
    const errors = validationResult(req);
-
+   let sucess = false;
    //If there are errors, return Bad request and the errors
    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
+      return res.status(400).json({ sucess, errors: errors.array() });
    }
 
    // else {
@@ -38,7 +38,7 @@ router.post('/createuser', [
       // console.log(user)
       // Check weather user with this email exists already returen error
       if (user) {
-         return res.status(400).json({ error: "Sorry a user with this email already exists" })
+         return res.status(400).json({ sucess, error: "Sorry a user with this email already exists" })
       }
 
       // Creating a salt for Password Protection:
@@ -67,13 +67,13 @@ router.post('/createuser', [
       }
       const authtoken = jwt.sign(data, JWT_SECRET);
       // console.log(jwtData);
-
+      sucess = "true";
       // res.json(user);
-      res.json({ authtoken });
+      res.json({ sucess, authtoken });
 
    } catch (error) {
       console.log(error.message);
-      res.status(500).send("Internal Server Error");
+      res.status(500).send(sucess, "Internal Server Error");
    }
 })
 
