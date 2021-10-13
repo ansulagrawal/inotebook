@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
-const Signup = () => {
+const Signup = (props) => {
 
    const [credentials, setCredentials] = useState({ name: "", email: "", password: "", cpassword: "" })
    let history = useHistory();
@@ -17,13 +17,14 @@ const Signup = () => {
          body: JSON.stringify({ name: credentials.name, email: credentials.email, password: credentials.password })
       });
       const json = await response.json();
-      console.log(json);
+      console.log(json.errors);
       if (json.sucess) {
          //save the auth token and redirect
          localStorage.setItem('token', json.authtoken);
          history.push("/")
+         props.showAlert("Account Created Sucessfully", "success");
       } else {
-         alert("Invalid Signup");
+         props.showAlert(json.error, "danger");
       }
    };
 
