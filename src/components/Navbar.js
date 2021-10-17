@@ -4,6 +4,9 @@ import { Link, useLocation } from 'react-router-dom'
 const Navbar = () => {
 
    let location = useLocation();
+   const handleLogout = () => {
+      localStorage.removeItem('token');
+   }
 
    return (
       <>
@@ -22,10 +25,16 @@ const Navbar = () => {
                         <Link className={`nav-link ${location.pathname !== "/about" ? "" : "active"}`} aria-current="page" to="/about">About</Link>
                      </li>
                   </ul>
-                  <form className="d-flex">
-                     <Link className="btn btn-primary mx-1" role="button" to="/login">Login</Link>
-                     <Link className="btn btn-primary mx-1" role="button" to="/signup">Signup</Link>
-                  </form>
+                  {!localStorage.getItem('token') ?
+                     <form className="d-flex">
+                        <Link className="btn btn-primary mx-1" role="button" to="/login">Login</Link>
+                        <Link className="btn btn-primary mx-1" role="button" to="/signup">Signup</Link>
+                     </form>
+                     :
+                     <form className="d-flex">
+                        <button className="btn btn-primary mx-1" onClick={handleLogout}>Logout</button>
+                     </form>
+                  }
                </div>
             </div>
          </nav>
