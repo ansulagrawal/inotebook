@@ -2,10 +2,9 @@ import { useState } from 'react';
 import NoteContext from './NoteContext';
 
 const NoteState = (props) => {
-
-   const host = "http://localhost:5000"
-   const notesInitial = []
-   const [notes, setNotes] = useState(notesInitial)
+   const host = 'https://guarded-river-86367.herokuapp.com';
+   const notesInitial = [];
+   const [notes, setNotes] = useState(notesInitial);
 
    // Get all Note:
    const getNotes = async () => {
@@ -14,18 +13,18 @@ const NoteState = (props) => {
          method: 'GET',
          headers: {
             'Content-Type': 'application/json',
-            'auth-token': localStorage.getItem('token')
+            'auth-token': localStorage.getItem('token'),
          },
       });
-      const note = await response.json()
+      const note = await response.json();
       setNotes(note);
 
-      // Logic in the client 
+      // Logic in the client
 
       // console.log(json);
       // setNotes(notes.push(note))
       // setNotes(notes.concat(note))
-   }
+   };
 
    //Add a Note:
    const addNote = async (title, description, tag) => {
@@ -34,13 +33,13 @@ const NoteState = (props) => {
          method: 'POST',
          headers: {
             'Content-Type': 'application/json',
-            'auth-token': localStorage.getItem('token')
+            'auth-token': localStorage.getItem('token'),
          },
-         body: JSON.stringify({ title, description, tag })
+         body: JSON.stringify({ title, description, tag }),
       });
       const note = await response.json();
       setNotes(notes.concat(note));
-   }
+   };
 
    // Delete a Note:
    const deleteNote = async (id) => {
@@ -49,18 +48,19 @@ const NoteState = (props) => {
          method: 'DELETE',
          headers: {
             'Content-Type': 'application/json',
-            'auth-token': localStorage.getItem('token')
-         }
+            'auth-token': localStorage.getItem('token'),
+         },
       });
       // eslint-disable-next-line
       const json = await response.json();
       // console.log(json)
 
-
       // console.log("Deleting a note with id" + id);
-      const newNote = notes.filter((notes) => { return (notes._id !== id) })
-      setNotes(newNote)
-   }
+      const newNote = notes.filter((notes) => {
+         return notes._id !== id;
+      });
+      setNotes(newNote);
+   };
 
    // Edit a note:
    const editNote = async (id, title, description, tag) => {
@@ -70,16 +70,16 @@ const NoteState = (props) => {
          method: 'PUT',
          headers: {
             'Content-Type': 'application/json',
-            'auth-token': localStorage.getItem('token')
+            'auth-token': localStorage.getItem('token'),
          },
-         body: JSON.stringify({ title, description, tag })
+         body: JSON.stringify({ title, description, tag }),
       });
       // eslint-disable-next-line
       const json = await response.json();
       // console.log(json)
 
       // TODO: Logic to edit in the client
-      let newNote = JSON.parse(JSON.stringify(notes))
+      let newNote = JSON.parse(JSON.stringify(notes));
       for (let i = 0; i < newNote.length; i++) {
          const element = newNote[i];
          if (element._id === id) {
@@ -90,13 +90,15 @@ const NoteState = (props) => {
          }
       }
       setNotes(newNote);
-   }
+   };
 
    return (
-      <NoteContext.Provider value={{ notes, setNotes, addNote, deleteNote, editNote, getNotes }}>
+      <NoteContext.Provider
+         value={{ notes, setNotes, addNote, deleteNote, editNote, getNotes }}
+      >
          {props.children}
       </NoteContext.Provider>
-   )
-}
+   );
+};
 
 export default NoteState;
