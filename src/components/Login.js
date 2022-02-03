@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 const Login = (props) => {
-   const host = 'https://guarded-river-86367.herokuapp.com';
+   const host = 'https://inotebook-back-ends.herokuapp.com';
    const [credentials, setCredentials] = useState({ email: '', password: '' });
    let history = useHistory();
 
