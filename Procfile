@@ -1,2 +1,1 @@
-web: npm install nodemon --save-dev
-web: npm run server
+web: npm run start
